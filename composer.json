@@ -1,11 +1,11 @@
 {
-    "name": "vividin/po2excel",
+    "name": "vividin/potato",
     "description": "po <-> excel converter",
     "minimum-stability": "dev",
-    "license": "proprietary",
+    "license": "GNU General Public License v3.0",
     "autoload": {
         "psr-4": {
-            "Vividin\\I18n\\": "src/"
+            "Vividin\\Potato\\": "src/"
         }
     },
     "authors": [
@@ -17,6 +17,7 @@
     "require": {
         "gettext/gettext": "2.0",
         "league/csv": "8.0.0",
-        "symfony/console": "3.0.x-dev"
+        "symfony/console": "3.0.x-dev",
+        "symfony/event-dispatcher": "^3.0"
     }
 }

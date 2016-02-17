@@ -1,6 +1,24 @@
 <?php
 
-namespace Vividin\I18n;
+/**
+ * Potato is from po to csv to po translation file converter.
+ * Copyright (C) 2016  Vividin Oy
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+namespace Vividin\Potato;
 
 use Gettext\Translations;
 use League\Csv\Writer;
@@ -123,6 +141,22 @@ class PoToCsvCommand extends Command
     }
 
     /**
+     * Writes nicely formatted title block
+     *
+     * @param OutputInterface $output
+     * @param string          $text
+     * @param string          $style
+     */
+    private function writeSection(OutputInterface $output, $text, $style = 'bg=blue;fg=white')
+    {
+        $output->writeln([
+                '',
+                $this->getHelper('formatter')->formatBlock('  ' . $text . '  ', $style, true),
+                '',
+        ]);
+    }
+
+    /**
      * Tries to guess and prompts user correct input po files
      *
      * @param InputInterface  $input
@@ -193,6 +227,75 @@ class PoToCsvCommand extends Command
     }
 
     /**
+     * Dumps array
+     *
+     * @param OutputInterface $output
+     * @param array           $items
+     */
+    private function writeList(OutputInterface $output, $items)
+    {
+        foreach ($items as $item) {
+            $output->writeln($item);
+        }
+    }
+
+    /**
+     * Prompts user simple y/n question
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @param string          $question
+     * @param bool            $default
+     *
+     * @return bool
+     */
+    private function confirm(InputInterface $input, OutputInterface $output, $question, $default = false)
+    {
+        $helper   = $this->getHelper('question');
+        $question = new ConfirmationQuestion($this->getQuestion($question . '', $default ? 'Y/n' : 'y/N'), $default);
+
+        return $helper->ask($input, $output, $question);
+    }
+
+    /**
+     * Returns nicely formatted question text
+     *
+     * @param string $question
+     * @param bool   $default
+     * @param string $sep
+     *
+     * @return string
+     */
+    private function getQuestion($question, $default = false, $sep = ':')
+    {
+        return PHP_EOL . ($default ? sprintf('<info>%s</info> [<comment>%s</comment>]%s ', $question, $default,
+                $sep) : sprintf('<info>%s</info>%s ', $question, $sep));
+    }
+
+    /**
+     * Prompts user question
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @param string          $question
+     * @param bool            $default
+     * @param callable        $validator
+     *
+     * @return string
+     */
+    private function ask(InputInterface $input, OutputInterface $output, $question, $default = false, $validator = null)
+    {
+        $helper   = $this->getHelper('question');
+        $question = new Question($this->getQuestion($question, $default), $default);
+
+        if (is_callable($validator)) {
+            $question->setValidator($validator);
+        }
+
+        return $helper->ask($input, $output, $question);
+    }
+
+    /**
      * Tries to guess and prompts user correct output folder
      *
      * @param InputInterface  $input
@@ -258,92 +361,6 @@ class PoToCsvCommand extends Command
         } else {
             return $answer;
         }
-    }
-
-    /**
-     * Writes nicely formatted title block
-     *
-     * @param OutputInterface $output
-     * @param string          $text
-     * @param string          $style
-     */
-    private function writeSection(OutputInterface $output, $text, $style = 'bg=blue;fg=white')
-    {
-        $output->writeln([
-                '',
-                $this->getHelper('formatter')->formatBlock('  ' . $text . '  ', $style, true),
-                '',
-        ]);
-    }
-
-    /**
-     * Dumps array
-     *
-     * @param OutputInterface $output
-     * @param array           $items
-     */
-    private function writeList(OutputInterface $output, $items)
-    {
-        foreach ($items as $item) {
-            $output->writeln($item);
-        }
-    }
-
-    /**
-     * Prompts user simple y/n question
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     * @param string          $question
-     * @param bool            $default
-     *
-     * @return bool
-     */
-    private function confirm(InputInterface $input, OutputInterface $output, $question, $default = false)
-    {
-        $helper   = $this->getHelper('question');
-        $question = new ConfirmationQuestion($this->getQuestion($question . '', $default ? 'Y/n' : 'y/N'), $default);
-
-        return $helper->ask($input, $output, $question);
-    }
-
-    /**
-     * Returns nicely formatted question text
-     *
-     * @param string $question
-     * @param bool   $default
-     * @param string $sep
-     *
-     * @return string
-     */
-    private function getQuestion($question, $default = false, $sep = ':')
-    {
-        return PHP_EOL . ($default
-                ? sprintf('<info>%s</info> [<comment>%s</comment>]%s ', $question, $default, $sep)
-                : sprintf('<info>%s</info>%s ', $question, $sep));
-    }
-
-    /**
-     * Prompts user question
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     * @param string          $question
-     * @param bool            $default
-     * @param callable        $validator
-     *
-     * @return string
-     */
-    private function ask(InputInterface $input, OutputInterface $output, $question, $default = false, $validator = null)
-    {
-        $helper   = $this->getHelper('question');
-        $question = new Question($this->getQuestion($question, $default), $default);
-
-        if (is_callable($validator)) {
-            $question->setValidator($validator);
-        }
-
-        return $helper->ask($input, $output, $question);
     }
 
 }

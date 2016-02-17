@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f4afe544881e839d589e890ff69b396",
-    "content-hash": "10bde3ebf7fe0eb34811c7a857ef3c8d",
+    "hash": "396afcc4cf0400f6faa1584bf5c0bb21",
+    "content-hash": "87527bbc53aa83d3e441999874d33303",
     "packages": [
         {
             "name": "gettext/gettext",
@@ -127,7 +127,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/4aed0846e26fca4cfb7b9444e23fa09740d4a449",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3c7b1efe3e5da01b7a51743c44b091e53b2bb9f6",
                 "reference": "4aed0846e26fca4cfb7b9444e23fa09740d4a449",
                 "shasum": ""
             },
@@ -176,6 +176,66 @@
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
             "time": "2016-02-16 06:11:42"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
+                "reference": "9d7930726e060b0c45ae10022a4cb307e502500b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/9d7930726e060b0c45ae10022a4cb307e502500b",
+                "reference": "9d7930726e060b0c45ae10022a4cb307e502500b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~2.8|~3.0",
+                "symfony/dependency-injection": "~2.8|~3.0",
+                "symfony/expression-language": "~2.8|~3.0",
+                "symfony/stopwatch": "~2.8|~3.0"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-02-04 12:57:09"
         },
         {
             "name": "symfony/polyfill-mbstring",

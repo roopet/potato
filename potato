@@ -1,13 +1,51 @@
 #!/usr/bin/env php
 <?php
 
-namespace Vividin\I18n;
+/**
+ * Potato is from po to csv to po translation file converter.
+ * Copyright (C) 2016  Vividin Oy
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
+namespace Vividin\Potato;
+
+use Symfony\Component\Console\ConsoleEvents;
+use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Console\Application;
 
 require 'vendor/autoload.php';
 
-$application = new Application();
+$dispatcher = new EventDispatcher();
+
+$dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $event) {
+
+    $output = $event->getOutput();
+
+    $output->writeln([
+        '',
+        'Potato  Copyright (C) 2016  Vividin Oy',
+        'This program comes with ABSOLUTELY NO WARRANTY; for details read COPYRIGHT file',
+        'This is free software, and you are welcome to redistribute it',
+        'under certain conditions; read COPYRIGHT file for details.',
+        '',
+    ]);
+});
+
+$application = new Application('Potato', 'v1.0.0');
+$application->setDispatcher($dispatcher);
 $application->add(new CsvToPoCommand());
 $application->add(new PoToCsvCommand());
 $application->run();
