@@ -1,0 +1,22 @@
+{
+    "name": "vividin/po2excel",
+    "description": "po <-> excel converter",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Vividin\\I18n\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Atte Pulkkinen",
+            "email": "me@attepulkkinen.fi"
+        }
+    ],
+    "require": {
+        "gettext/gettext": "2.0",
+        "league/csv": "8.0.0",
+        "symfony/console": "3.0.x-dev"
+    }
+}
