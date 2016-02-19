@@ -37,9 +37,9 @@ $dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $
     $output->writeln([
         '',
         'Potato  Copyright (C) 2016  Vividin Oy',
-        'This program comes with ABSOLUTELY NO WARRANTY; for details read COPYRIGHT file',
+        'This program comes with ABSOLUTELY NO WARRANTY; for details read LICENSE file',
         'This is free software, and you are welcome to redistribute it',
-        'under certain conditions; read COPYRIGHT file for details.',
+        'under certain conditions; read LICENSE file for details.',
         '',
     ]);
 });
